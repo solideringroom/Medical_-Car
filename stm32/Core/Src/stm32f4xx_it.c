@@ -75,6 +75,8 @@ extern positional_pid_ctrler PID_M1_DISTANCE;
 extern float SPEED_GOAL;
 extern float I_Out;
 float D_Out;
+//
+extern uint8_t T_Data;
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -284,6 +286,7 @@ void TIM6_DAC_IRQHandler(void)
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
 	Calc_Speed();//�����ٶȣ����Ǳ��������ݶ�ȡ
 	TASK_RUN(&Medicine_Car);
+	//HAL_UART_Transmit(&huart2,&T_Data,1,HAL_MAX_DELAY);
 //M1_SPEED = Get_M1_Speed();//�����õ�
 	//�����Ǹ��ݶ�ȡ���ݽ��е�PID����
 //	

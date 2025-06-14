@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../MyCode;../Core/Inc/BSP_USERH</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../MyCode;../Core/Inc/BSP_USERH;..\Core\Inc\User_Headerfile</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -359,7 +359,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath></IncludePath>
+              <IncludePath>..\Core\Inc\User_Headerfile;..\Core\Inc</IncludePath>
             </VariousControls>
           </Aads>
           <LDads>
@@ -396,66 +396,6 @@
           <GroupName>Application/User/Core</GroupName>
           <Files>
             <File>
-              <FileName>oled.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\oled.c</FilePath>
-            </File>
-            <File>
-              <FileName>IIC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MyCode\IIC.c</FilePath>
-            </File>
-            <File>
-              <FileName>inv_mpu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MyCode\inv_mpu.c</FilePath>
-            </File>
-            <File>
-              <FileName>inv_mpu_dmp_motion_driver.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MyCode\inv_mpu_dmp_motion_driver.c</FilePath>
-            </File>
-            <File>
-              <FileName>mpu6050.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\MyCode\mpu6050.c</FilePath>
-            </File>
-            <File>
-              <FileName>Encoder.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\BSP_USERC\Encoder.c</FilePath>
-            </File>
-            <File>
-              <FileName>soft_timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\BSP_USERC\soft_timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>pid_config.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\BSP_USERC\pid_config.c</FilePath>
-            </File>
-            <File>
-              <FileName>TB6612.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\BSP_USERC\TB6612.c</FilePath>
-            </File>
-            <File>
-              <FileName>car_control.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\BSP_USERC\car_control.c</FilePath>
-            </File>
-            <File>
-              <FileName>car_params_config.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\BSP_USERC\car_params_config.c</FilePath>
-            </File>
-            <File>
-              <FileName>Task_Machine.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\BSP_USERC\Task_Machine.c</FilePath>
-            </File>
-            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/main.c</FilePath>
@@ -469,11 +409,6 @@
               <FileName>stm32f4xx_hal_msp.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32f4xx_hal_msp.c</FilePath>
-            </File>
-            <File>
-              <FileName>MV_UART.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\BSP_USERC\MV_UART.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -681,6 +616,81 @@
               <FileName>system_stm32f4xx.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/system_stm32f4xx.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>BSP_Modules</GroupName>
+          <Files>
+            <File>
+              <FileName>Encoder.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\BSP_USERC\bsp_modules\Encoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>IIC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\BSP_USERC\bsp_modules\IIC.c</FilePath>
+            </File>
+            <File>
+              <FileName>inv_mpu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\BSP_USERC\bsp_modules\inv_mpu.c</FilePath>
+            </File>
+            <File>
+              <FileName>inv_mpu_dmp_motion_driver.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\BSP_USERC\bsp_modules\inv_mpu_dmp_motion_driver.c</FilePath>
+            </File>
+            <File>
+              <FileName>mpu6050.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\BSP_USERC\bsp_modules\mpu6050.c</FilePath>
+            </File>
+            <File>
+              <FileName>MV_UART.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\BSP_USERC\bsp_modules\MV_UART.c</FilePath>
+            </File>
+            <File>
+              <FileName>oled.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\BSP_USERC\bsp_modules\oled.c</FilePath>
+            </File>
+            <File>
+              <FileName>TB6612.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\BSP_USERC\bsp_modules\TB6612.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Logic_Modules</GroupName>
+          <Files>
+            <File>
+              <FileName>car_control.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\BSP_USERC\logic_modules\car_control.c</FilePath>
+            </File>
+            <File>
+              <FileName>car_params_config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\BSP_USERC\logic_modules\car_params_config.c</FilePath>
+            </File>
+            <File>
+              <FileName>pid_config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\BSP_USERC\logic_modules\pid_config.c</FilePath>
+            </File>
+            <File>
+              <FileName>soft_timer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\BSP_USERC\logic_modules\soft_timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>Task_Machine.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\BSP_USERC\logic_modules\Task_Machine.c</FilePath>
             </File>
           </Files>
         </Group>

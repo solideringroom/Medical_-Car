@@ -25,10 +25,15 @@ ee_project/main.o: ..\Core\Src\main.c ..\Core\Inc\main.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
-  ..\Core\Inc\oled.h ..\MyCode\IIC.h ..\MyCode\inv_mpu.h \
-  ..\MyCode\inv_mpu_dmp_motion_driver.h ..\MyCode\mpu6050.h \
-  ..\Core\Inc\BSP_USERH\soft_timer.h ..\Core\Inc\BSP_USERH\TB6612.h \
-  ..\Core\Inc\BSP_USERH\Encoder.h ..\Core\Inc\BSP_USERH\car_control.h \
-  ..\Core\Inc\BSP_USERH\pid_config.h \
-  ..\Core\Inc\BSP_USERH\car_params_config.h \
-  ..\Core\Inc\BSP_USERH\Task_Machine.h ..\Core\Inc\BSP_USERH\MV_UART.h
+  ..\Core\Inc\User_Headerfile\oled.h ..\Core\Inc\User_Headerfile\IIC.h \
+  ..\Core\Inc\User_Headerfile\inv_mpu.h \
+  ..\Core\Inc\User_Headerfile\inv_mpu_dmp_motion_driver.h \
+  ..\Core\Inc\User_Headerfile\mpu6050.h \
+  ..\Core\Inc\User_Headerfile\soft_timer.h \
+  ..\Core\Inc\User_Headerfile\TB6612.h \
+  ..\Core\Inc\User_Headerfile\Encoder.h \
+  ..\Core\Inc\User_Headerfile\car_control.h \
+  ..\Core\Inc\User_Headerfile\pid_config.h \
+  ..\Core\Inc\User_Headerfile\car_params_config.h \
+  ..\Core\Inc\User_Headerfile\Task_Machine.h \
+  ..\Core\Inc\User_Headerfile\MV_UART.h

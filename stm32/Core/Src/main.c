@@ -66,8 +66,9 @@ UART_HandleTypeDef huart3;
 /* USER CODE BEGIN PV */
 //串口通信变量：
 uint8_t Openmv_Buff[100] = {0};
-uint16_t Openmv_Recv_Data;
-uint16_t data_x,data_y;
+uint8_t Openmv_Recv_Data;
+
+float distance_er,angle_er;
 
 /* USER CODE END PV */
 
@@ -95,7 +96,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	if(huart == &huart2)
 	{
-		Decode(Openmv_Recv_Data,Openmv_Buff,&data_x,&data_y);
+		Decode(Openmv_Recv_Data,Openmv_Buff,&distance_er,&angle_er);
 		HAL_UART_Receive_IT(&huart2,&Openmv_Recv_Data,1);
 	}
 }
@@ -167,7 +168,7 @@ int main(void)
 	OLED_ShowString(0,0,(uint8_t*)display_buff,8);
 	Car_Init(&Medicine_Car);
 	ERROR_EARSER_INIT();
-	
+	T_Data = '1';
 	HAL_UART_Receive_IT(&huart2,&Openmv_Recv_Data,1);
 
   /* USER CODE END 2 */
@@ -177,10 +178,10 @@ int main(void)
 	uint8_t num0 = 0;
 	uint8_t num1 = 0;
 	uint8_t num2 = 0;
-	
+//	
 	soft_timer_repeat_init(SOFT_TIMER_0,1000);
-	soft_timer_repeat_init(SOFT_TIMER_1,200);
-
+	soft_timer_repeat_init(SOFT_TIMER_1,1000);
+	soft_timer_repeat_init(SOFT_TIMER_2,1000);
 
   while (1)
   {
@@ -202,8 +203,14 @@ int main(void)
 			OLED_ShowString(0,3,(uint8_t*)display_buff,8);
 			sprintf(display_buff,"STEP_TASK:%d  ",a_temp_step);
 			OLED_ShowString(0,4,(uint8_t*)display_buff,8);
-			sprintf(display_buff,"dx:%d,dy:%d  ",data_x,data_y);
+			sprintf(display_buff,"dx:%.2f,dy:%.2f",distance_er,angle_er);
 			OLED_ShowString(0,5,(uint8_t*)display_buff,8);
+			sprintf(display_buff,"RECVOK?%d      ",recv_status);
+			OLED_ShowString(0,6,(uint8_t*)display_buff,8);
+		}
+		if(soft_timer_is_timeout(SOFT_TIMER_2))
+		{
+			 
 		}
     /* USER CODE END WHILE */
 
