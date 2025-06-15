@@ -292,22 +292,22 @@ void Car_FindLine_Mode_OFF(CarType *Car)
 }
 //Mode 1:寻中线 0：回正，Speed为0
 //pack是视觉发过来的数据解析之后的数据包，有中线距离的偏移量[0]，中线的偏移角度量[1]
-//假设逆时针为正方向，那么中间是90度的话相机里线左偏对应现实中车右偏，ERROR为正，车要左转，所以左轮要减去误差右轮加上误差
-uint8_t Car_Find_Line(CarType* Car,float Base_Speed,uint8_t Mode,float Mode_Gain,int* pack) //Mode指的是回正还是寻中线 Mode Gain指的是如果是回正模式的话PID误差成比例减小，那么增大其输出
+//左负右正，左偏的时候左边电机需要加速，所以减去error，右边加上error
+uint8_t Car_Find_Line(CarType* Car,float Base_Speed,uint8_t Mode,float Mode_Gain,int* pack,float Over_All_Gain) //Mode指的是回正还是寻中线 Mode Gain指的是如果是回正模式的话PID误差成比例减小，那么增大其输出
 {
 	if(1 == Mode)
 	{
 		Find_Line_Error = pack[0]+pack[1];
 		Find_Line_EROutput = positional_pid_compute(&FIND_LINE_PID,0,Find_Line_Error,&FIND_LINE_PID.FILTER_ERROR);
-		Find_Line_LOUT = positional_pid_compute(&Car->PID_Left_Motor_Speed,Base_Speed-Find_Line_EROutput,Get_M1_Speed(),&Car->PID_Left_Motor_Speed.FILTER_ERROR);
-		Find_Line_ROUT = positional_pid_compute(&Car->PID_Right_Motor_Speed,Base_Speed-Find_Line_EROutput,Get_M2_Speed(),&Car->PID_Right_Motor_Speed.FILTER_ERROR);
+		Find_Line_LOUT = Over_All_Gain*positional_pid_compute(&Car->PID_Left_Motor_Speed,Base_Speed+Find_Line_EROutput,Get_M1_Speed(),&Car->PID_Left_Motor_Speed.FILTER_ERROR);
+		Find_Line_ROUT = Over_All_Gain*positional_pid_compute(&Car->PID_Right_Motor_Speed,Base_Speed-Find_Line_EROutput,Get_M2_Speed(),&Car->PID_Right_Motor_Speed.FILTER_ERROR);
 		Load(Find_Line_LOUT,Find_Line_ROUT);
 	}else if(0 == Mode)
 	{
 		Find_Line_Error = pack[1];
 		Find_Line_EROutput = Mode_Gain*positional_pid_compute(&FIND_LINE_PID,0,Find_Line_Error,&FIND_LINE_PID.FILTER_ERROR);
-		Find_Line_LOUT = positional_pid_compute(&Car->PID_Left_Motor_Speed,Base_Speed-Find_Line_EROutput,Get_M1_Speed(),&Car->PID_Left_Motor_Speed.FILTER_ERROR);
-		Find_Line_ROUT = positional_pid_compute(&Car->PID_Right_Motor_Speed,Base_Speed-Find_Line_EROutput,Get_M2_Speed(),&Car->PID_Right_Motor_Speed.FILTER_ERROR);
+		Find_Line_LOUT = Over_All_Gain*positional_pid_compute(&Car->PID_Left_Motor_Speed,Base_Speed+Find_Line_EROutput,Get_M1_Speed(),&Car->PID_Left_Motor_Speed.FILTER_ERROR);
+		Find_Line_ROUT = Over_All_Gain*positional_pid_compute(&Car->PID_Right_Motor_Speed,Base_Speed-Find_Line_EROutput,Get_M2_Speed(),&Car->PID_Right_Motor_Speed.FILTER_ERROR);
 		Load(Find_Line_LOUT,Find_Line_ROUT);
 		if(Find_Line_LOUT==0&&Find_Line_ROUT==0)
 		{

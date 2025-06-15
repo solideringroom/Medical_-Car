@@ -94,9 +94,9 @@ float ERROR_OutPut_Min_DISTANCE = -10000;
 
 //____________________视觉巡线环__________________________
 //基础PID参数
-float FINDLINE_KP_DISTANCE = 4;
+float FINDLINE_KP_DISTANCE = 0.01;
 float FINDLINE_KI_DISTANCE = 0;
-float FINDLINE_KD_DISTANCE = 0.2;
+float FINDLINE_KD_DISTANCE = 0;
 //误差死区
 float FINDLINE_DeadZone_DISTANCE = 0;
 //积分分离，积分限幅

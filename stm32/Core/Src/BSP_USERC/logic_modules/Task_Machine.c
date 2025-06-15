@@ -76,13 +76,13 @@ void TASK_RUN(CarType* Task_Car)
 			}
 		
 			break;
-		case APP_CAR_CONTROL_WAIT_FOR_LOAD:
+		case APP_CAR_CONTROL_WAIT_FOR_LOAD: //药品装载完毕
 			if(1 == HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_3))
 			{
 				Medicine_Car_Task++;
 			}
 			break;
-		case APP_CAR_CONTROL_ESTABLISH_COMMUNICATION:
+		case APP_CAR_CONTROL_ESTABLISH_COMMUNICATION:  //任务发送给视觉了
 			if( 1 == Transmit(&T_Data) || flip_flag0 == 1 )
 			{
 				flip_flag0 = 1;
@@ -95,10 +95,10 @@ void TASK_RUN(CarType* Task_Car)
 				}
 			}
 			break;
-		case APP_CAR_CONTROL_WAIT_FOR_K210_NUMBER:
-			if(0)
+		case APP_CAR_CONTROL_FIND_RED_LINE:    //测试巡线用
+			if(1)
 			{
-				Medicine_Car_Task = APP_CAR_CONTROL_GOTO_A;					//假设读取到了数字
+				Car_Find_Line(Task_Car,0.8,1,0,Recv_Buff,1);//这里卡死，先一直运行
 			}
 			break;
 		case APP_CAR_CONTROL_GOTO_A:

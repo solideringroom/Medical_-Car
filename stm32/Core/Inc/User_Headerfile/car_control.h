@@ -29,5 +29,6 @@ void Car_FindLine_Mode_OFF(CarType *Car);
 void ERROR_EARSER_INIT();
 extern float Left_Motor_Position_PID_Out,Left_Motor_Speed_PID_Out;
 extern float Right_Motor_Position_PID_Out,Right_Motor_Speed_PID_Out;
+uint8_t Car_Find_Line(CarType* Car,float Base_Speed,uint8_t Mode,float Mode_Gain,int* pack,float Over_All_Gain); //Mode指的是回正还是寻中线 Mode Gain指的是如果是回正模式的话PID误差成比例减小，那么增大其输出
 
 #endif

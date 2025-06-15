@@ -96,7 +96,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	if(huart == &huart2)
 	{
-		Decode(Openmv_Recv_Data,Openmv_Buff,&distance_er,&angle_er);
+		Decode(Openmv_Recv_Data,Recv_Buff);
 		HAL_UART_Receive_IT(&huart2,&Openmv_Recv_Data,1);
 	}
 }
@@ -180,7 +180,7 @@ int main(void)
 	uint8_t num2 = 0;
 //	
 	soft_timer_repeat_init(SOFT_TIMER_0,1000);
-	soft_timer_repeat_init(SOFT_TIMER_1,1000);
+	soft_timer_repeat_init(SOFT_TIMER_1,200);
 	soft_timer_repeat_init(SOFT_TIMER_2,1000);
 
   while (1)
@@ -203,7 +203,7 @@ int main(void)
 			OLED_ShowString(0,3,(uint8_t*)display_buff,8);
 			sprintf(display_buff,"STEP_TASK:%d  ",a_temp_step);
 			OLED_ShowString(0,4,(uint8_t*)display_buff,8);
-			sprintf(display_buff,"dx:%.2f,dy:%.2f",distance_er,angle_er);
+			sprintf(display_buff,"dx:%d,dy:%d     ",Recv_Buff[0],Recv_Buff[1]);
 			OLED_ShowString(0,5,(uint8_t*)display_buff,8);
 			sprintf(display_buff,"RECVOK?%d      ",recv_status);
 			OLED_ShowString(0,6,(uint8_t*)display_buff,8);
