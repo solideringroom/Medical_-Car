@@ -21,7 +21,7 @@
 //--------------------------Left-------------------------
 //____________________速度环__________________________
 //基础PID参数
-float Left_KP_SPEED = 1800;//5000;
+float Left_KP_SPEED = 2000;//5000;
 float Left_KI_SPEED = 120;//200
 float Left_KD_SPEED = 0;//10000
 //误差死区
@@ -39,7 +39,7 @@ float Left_KP_DISTANCE = 3;
 float Left_KI_DISTANCE = 0;
 float Left_KD_DISTANCE = 0.01;
 //误差死区
-float Left_DeadZone_DISTANCE = 0.005;
+float Left_DeadZone_DISTANCE = 0.02;
 //积分分离，积分限幅
 float Left_Separation_Threshold_DISTANCE = 100;
 float Left_Integral_Limit_Max_DISTANCE = 10000000;
@@ -50,7 +50,7 @@ float Left_OutPut_Min_DISTANCE = -1;
 //--------------------------Right-------------------------
 //____________________速度环__________________________
 //基础PID参数
-float Right_KP_SPEED = 1800;
+float Right_KP_SPEED = 2000;
 float Right_KI_SPEED = 120;
 float Right_KD_SPEED = 0;
 //误差死区
@@ -68,7 +68,7 @@ float Right_KP_DISTANCE = 3;
 float Right_KI_DISTANCE = 0;
 float Right_KD_DISTANCE = 1;
 //误差死区
-float Right_DeadZone_DISTANCE = 0.005;
+float Right_DeadZone_DISTANCE = 0.02;
 //积分分离，积分限幅
 float Right_Separation_Threshold_DISTANCE = 100;
 float Right_Integral_Limit_Max_DISTANCE = 100000;
@@ -94,9 +94,9 @@ float ERROR_OutPut_Min_DISTANCE = -10000;
 
 //____________________视觉巡线环__________________________
 //基础PID参数
-float FINDLINE_KP_DISTANCE = 0.002;
-float FINDLINE_KI_DISTANCE = 0.0;
-float FINDLINE_KD_DISTANCE = 0.01;
+float FINDLINE_KP_DISTANCE = 0.004;//0.006
+float FINDLINE_KI_DISTANCE = 0;
+float FINDLINE_KD_DISTANCE = 0.08;
 //误差死区
 float FINDLINE_DeadZone_DISTANCE = 2;
 //积分分离，积分限幅
@@ -107,4 +107,4 @@ float FINDLINE_Integral_Limit_Min_DISTANCE = -0.1;
 float FINDLINE_OutPut_Max_DISTANCE = 1000;
 float FINDLINE_OutPut_Min_DISTANCE = -10000;
 //巡线基础速度设定
-float Base_Speed = 2.4;
+float Base_Speed = 2;

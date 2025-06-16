@@ -71,7 +71,33 @@ uint8_t soft_timer_is_timeout(soft_timer_type timer)//超时标志位判断
     }
     return ret;
 }				
-
+//这里面用了静态变量，不能重复使用。重复的话可以用结构体，每次要用新的斜坡的时候直接定义一个新的斜坡结构体传进去
+float slop_function(slope_function* slop,float start,float end,uint16_t time)
+{
+	uint32_t elipesed_time;
+	//如果斜坡参数有改动或者第一次初始化：那么重新初始化
+	//初始化主要就是重新标定时间，计算一下斜率
+	//这样代码复用性很强，不用重新申请空间，用一套斜坡空间就能计算所有斜坡
+	if(slop->if_init == 0||slop->start != start||slop->end != end||slop->time != time)
+	{
+		slop->if_init = 1;
+		slop->get_time = HAL_GetTick();//初始化：获取当前时间
+		slop->slop_k = (end - start)/time;//计算斜坡斜率
+		slop->end =end;
+		slop->start = start;
+		slop->time = time;
+	}
+	elipesed_time = HAL_GetTick() - slop->get_time;
+	
+	if(elipesed_time >= slop->time)//一致性
+	{
+		return slop->end;//保证一致性，代码初始化之后尽量全用结构体里面经过初始化之后的成员计算，而不用end
+	}
+	else
+		{
+			return slop->start +elipesed_time*slop->slop_k;
+		}
+}
 
  /**
   -  @brief  在32的SysTick_Handler中断服务程序中调用，每1ms调用一次(在stm32f4xx_it.c里面)

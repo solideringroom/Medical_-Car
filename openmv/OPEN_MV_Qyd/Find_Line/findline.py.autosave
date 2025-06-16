@@ -102,10 +102,13 @@ while(True):
             meet_crossing_flag = 2
         elif(left_detected == 1 and right_detected == 1 and middle_detected == 1):  #有十字路口
             meet_crossing_flag = 3
-        elif(full_blob_white==0):  #没有路口,判断为到药房了
-            meet_crossing_flag = 4
+        # elif(left_detected == 1 and right_detected == 1 and middle_detected == 1):  #有十字路口
+        #     meet_crossing_flag = 5
         else:                                                                       #其他情况
             meet_crossing_flag = 0
+        if(full_blob_white==0):  #没有路口,判断为到药房了
+            meet_crossing_flag = 4
+        
         #print(left_detected,right_detected,meet_crossing_flag)
         #只对下半部分画面进行线性回归
         img.draw_rectangle(Roi_down, (255,0,0))

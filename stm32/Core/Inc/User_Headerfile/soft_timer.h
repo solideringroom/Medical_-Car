@@ -46,12 +46,22 @@ typedef struct
     volatile uint8_t is_timeout; // 超时标志
     volatile uint8_t is_activate;  // 是否激活
 } software_timer;
-
+typedef struct 
+{
+	uint32_t get_time;
+	uint8_t time_flag;
+	float slop_k;
+	uint8_t if_init;
+  float start;
+	float end;
+	uint32_t time;
+}slope_function;
 
 void soft_timer_repeat_init(soft_timer_type timer, uint32_t timeout);
 uint8_t soft_timer_is_timeout(soft_timer_type timer);
 void soft_timer_tick(void);
 uint8_t delay_timer(delay_timer_type delay_task,uint32_t delay_time);
+float slop_function(slope_function* slop,float start,float end,uint16_t time);
 
 
 #endif

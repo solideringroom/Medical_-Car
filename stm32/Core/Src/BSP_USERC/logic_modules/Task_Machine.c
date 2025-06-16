@@ -63,6 +63,7 @@
 TASK_STATUS Medicine_Car_Task;
 uint8_t a_temp_step ;
 uint8_t flip_flag0;
+slope_function speed_slop;
 //
 void TASK_RUN(CarType* Task_Car)
 {
@@ -95,46 +96,105 @@ void TASK_RUN(CarType* Task_Car)
 				}
 			}
 			break;
-		case APP_CAR_CONTROL_FIND_RED_LINE:    //测试巡线用
+		case APP_CAR_CONTROL_WAIT_FOR_NUM:    //这一步开始的数字识别等待和视觉对接
 			if(1)
 			{
-				Car_Find_Line(Task_Car,Base_Speed,1,0,Recv_Buff,1.0);//这里卡死，先一直运行
+				Medicine_Car_Task = APP_CAR_CONTROL_GOTO_A;
+				Car_FindLine_Mode_ON(Task_Car);	//先打开循迹PID，准备循迹
 			}
 			break;
 		case APP_CAR_CONTROL_GOTO_A:
+			//a_temp_step = 9;//测试用
 			switch (a_temp_step)
 			{
 				case 0:
-					if(1 == Go_Forward(Task_Car,1,8))								//前进
+					if(Car_Find_Line(Task_Car,Base_Speed,1,0,Recv_Buff,1.0) == 3)								//前进
 					{
-						ERROR_DISTANCE_PID.i_out = 0;
+						Car_FindLine_Mode_OFF(Task_Car);
+						Car_Position_Mode_ON(Task_Car);
 						a_temp_step++;																	
 					}
 					break;
 				case 1:
-					if(1 == Turn_Left(Task_Car,0.8,0.5))							//左转
+					if(1 == Go_Forward(Task_Car,0.5,0.8))							//补距离
 					{
-						ERROR_DISTANCE_PID.i_out = 0;
 						a_temp_step++;														
 					}
 					break;
 				case 2:
-					if(1 == Turn_Right(Task_Car,0.8,0.5))							//右转
+					if(1 == Turn_Left(Task_Car,0.8,0.46))							//左转
 					{
-						ERROR_DISTANCE_PID.i_out = 0;
-						a_temp_step++;												
-					}
-					break;
-				case 3:
-					if(1 == Go_Backward(Task_Car,1,8))							//后退
-					{
-						ERROR_DISTANCE_PID.i_out = 0;
+						Car_Position_Mode_OFF(Task_Car);
+						Car_FindLine_Mode_ON(Task_Car);
 						a_temp_step++;														
 					}
 					break;
+//				case 3:
+//					if(Car_Find_Line(Task_Car,Base_Speed,0,3,Recv_Buff,1.0) == 5)							//回正
+//					{
+//						a_temp_step++;														
+//					}
+//					break;
+				case 3:
+					if(Car_Find_Line(Task_Car,slop_function(&speed_slop,0,Base_Speed,1000),1,0,Recv_Buff,1.0) == 4)					//巡线直到药房，之后停止
+					{
+						Car_FindLine_Mode_OFF(Task_Car);
+						Car_Position_Mode_ON(Task_Car);
+						a_temp_step++;												
+					}
+					break;
 				case 4:
-					a_temp_step++;																		//结束，任务进入结束停滞区
-					Medicine_Car_Task++;
+					if(Go_Forward(Task_Car,0.5,0.2) == 1)					//	确保停止的瞬间偏转角度不会改变太大
+					{
+						Car_Position_Mode_OFF(Task_Car);
+						a_temp_step++;												
+					}
+					break;
+				case 5:
+					if(1 == HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_3))							//等待卸载药品，之后回城
+					{
+						Car_Position_Mode_ON(Task_Car);
+						a_temp_step++;														
+					}
+					break;
+				case 6:
+					if(1 == Turn_Right(Task_Car,0.7,0.92))							//右转,其实是向后转
+					{
+						Car_Position_Mode_OFF(Task_Car);
+						Car_FindLine_Mode_ON(Task_Car);
+						a_temp_step++;														
+					}
+					break;
+				case 7:
+					if(Car_Find_Line(Task_Car,Base_Speed,1,0,Recv_Buff,1.0) == 3)								//巡线前进
+					{
+						Car_FindLine_Mode_OFF(Task_Car);
+						Car_Position_Mode_ON(Task_Car);
+						a_temp_step++;																	
+					}
+					break;
+				case 8:
+					
+					if(1 == Go_Forward(Task_Car,0.5,0.75))							//补距离
+					{
+						a_temp_step++;														
+					}
+					break;
+				case 9:
+					if(1 == Turn_Right(Task_Car,0.8,0.5))							//右转
+					{
+						Car_Position_Mode_OFF(Task_Car);
+						Car_FindLine_Mode_ON(Task_Car);
+						a_temp_step++;														
+					}
+					break;
+				case 10:
+					if(Car_Find_Line(Task_Car,slop_function(&speed_slop,0,Base_Speed,999),1,0,Recv_Buff,1.0) == 4)								//巡线前进
+					{
+						Car_FindLine_Mode_OFF(Task_Car);
+						Medicine_Car_Task = APP_CAR_CONTROL_FLASH;
+						a_temp_step++;									//任务序号进入死区								
+					}
 					break;
 				default:
 					break;	
@@ -143,12 +203,9 @@ void TASK_RUN(CarType* Task_Car)
 		
 		case APP_CAR_CONTROL_FLASH:
 				HAL_GPIO_TogglePin(GPIOF,GPIO_PIN_3);		//点灯庆祝
-				Medicine_Car_Task++;
-				Car_Position_Mode_OFF(Task_Car);								//关闭所有PID输出
-				
+				//Medicine_Car_Task++;							
 				break;
-		case APP_CAR_CONTROL_STOP:
-				Car_Position_Mode_OFF(Task_Car);		
+		case APP_CAR_CONTROL_STOP:									
 				break;		
 		default:
 			break;																		//结束之后所有任务标志位全处于结束停滞区，不复位就不会再次执行任何东西
