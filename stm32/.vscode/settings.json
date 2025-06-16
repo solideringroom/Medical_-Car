@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "car_control.h": "c",
+        "task_machine.h": "c",
+        "car_params_config.h": "c"
+    }
+}

@@ -297,22 +297,42 @@ uint8_t Car_Find_Line(CarType* Car,float Base_Speed,uint8_t Mode,float Mode_Gain
 {
 	if(1 == Mode)
 	{
-		Find_Line_Error = pack[0]+pack[1];
-		Find_Line_EROutput = positional_pid_compute(&FIND_LINE_PID,0,Find_Line_Error,&FIND_LINE_PID.FILTER_ERROR);
-		Find_Line_LOUT = Over_All_Gain*positional_pid_compute(&Car->PID_Left_Motor_Speed,Base_Speed+Find_Line_EROutput,Get_M1_Speed(),&Car->PID_Left_Motor_Speed.FILTER_ERROR);
-		Find_Line_ROUT = Over_All_Gain*positional_pid_compute(&Car->PID_Right_Motor_Speed,Base_Speed-Find_Line_EROutput,Get_M2_Speed(),&Car->PID_Right_Motor_Speed.FILTER_ERROR);
-		Load(Find_Line_LOUT,Find_Line_ROUT);
+//		if(pack[0] == -1 && pack[1] == -1){ //收到-1-1表明小车完全未识别到线,原地转圈找线
+//			Find_Line_LOUT = positional_pid_compute(&Car->PID_Left_Motor_Speed, 0.5, Get_M1_Speed(), &Car->PID_Left_Motor_Speed.FILTER_ERROR);
+//			Find_Line_ROUT = positional_pid_compute(&Car->PID_Right_Motor_Speed, -0.5,Get_M2_Speed(),&Car->PID_Right_Motor_Speed.FILTER_ERROR);
+//		}
+//		else{
+			if(pack[2] == 0){
+			Find_Line_Error = pack[0]+pack[1];
+			Find_Line_EROutput = positional_pid_compute(&FIND_LINE_PID,0,Find_Line_Error,&FIND_LINE_PID.FILTER_ERROR);
+			Find_Line_LOUT = positional_pid_compute(&Car->PID_Left_Motor_Speed,Over_All_Gain*(Base_Speed+Find_Line_EROutput),Get_M1_Speed(),&Car->PID_Left_Motor_Speed.FILTER_ERROR);
+			Find_Line_ROUT = positional_pid_compute(&Car->PID_Right_Motor_Speed,Over_All_Gain*(Base_Speed-Find_Line_EROutput),Get_M2_Speed(),&Car->PID_Right_Motor_Speed.FILTER_ERROR);
+			}
+			if(pack[2] != 0){ //识别到路口就停，临时用，非正式
+				Find_Line_LOUT = positional_pid_compute(&Car->PID_Left_Motor_Speed,0,Get_M1_Speed(),&Car->PID_Left_Motor_Speed.FILTER_ERROR);
+				Find_Line_ROUT = positional_pid_compute(&Car->PID_Right_Motor_Speed,0,Get_M2_Speed(),&Car->PID_Right_Motor_Speed.FILTER_ERROR);
+			}
+			Load(Find_Line_LOUT,Find_Line_ROUT);
+		//}
+		
 	}else if(0 == Mode)
 	{
-		Find_Line_Error = pack[1];
-		Find_Line_EROutput = Mode_Gain*positional_pid_compute(&FIND_LINE_PID,0,Find_Line_Error,&FIND_LINE_PID.FILTER_ERROR);
-		Find_Line_LOUT = Over_All_Gain*positional_pid_compute(&Car->PID_Left_Motor_Speed,Base_Speed+Find_Line_EROutput,Get_M1_Speed(),&Car->PID_Left_Motor_Speed.FILTER_ERROR);
-		Find_Line_ROUT = Over_All_Gain*positional_pid_compute(&Car->PID_Right_Motor_Speed,Base_Speed-Find_Line_EROutput,Get_M2_Speed(),&Car->PID_Right_Motor_Speed.FILTER_ERROR);
-		Load(Find_Line_LOUT,Find_Line_ROUT);
-		if(Find_Line_LOUT==0&&Find_Line_ROUT==0)
-		{
-			return 1;//进入死区，表示对齐了
+		if(pack[0] == -1 && pack[1] == -1){ //收到-1-1表明小车完全未识别到线,原地转圈找线
+			Find_Line_LOUT = positional_pid_compute(&Car->PID_Left_Motor_Speed, 0.5, Get_M1_Speed(), &Car->PID_Left_Motor_Speed.FILTER_ERROR);
+			Find_Line_ROUT = positional_pid_compute(&Car->PID_Right_Motor_Speed, -0.5,Get_M2_Speed(),&Car->PID_Right_Motor_Speed.FILTER_ERROR);
 		}
+		else{
+			Find_Line_Error = Mode_Gain*pack[1];
+			Find_Line_EROutput = positional_pid_compute(&FIND_LINE_PID,0,Find_Line_Error,&FIND_LINE_PID.FILTER_ERROR);
+			Find_Line_LOUT = positional_pid_compute(&Car->PID_Left_Motor_Speed,Over_All_Gain*(Base_Speed+Find_Line_EROutput),Get_M1_Speed(),&Car->PID_Left_Motor_Speed.FILTER_ERROR);
+			Find_Line_ROUT = positional_pid_compute(&Car->PID_Right_Motor_Speed,Over_All_Gain*(Base_Speed-Find_Line_EROutput),Get_M2_Speed(),&Car->PID_Right_Motor_Speed.FILTER_ERROR);
+			Load(Find_Line_LOUT,Find_Line_ROUT);
+			if(Find_Line_LOUT==0&&Find_Line_ROUT==0)
+			{
+				return 1;//进入死区，表示对齐了
+			}
+		}
+		
 	}
 	return 0;
 }

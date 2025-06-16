@@ -92,4 +92,5 @@ extern float FINDLINE_Integral_Limit_Min_DISTANCE ;
 //最后总的输出
 extern float FINDLINE_OutPut_Max_DISTANCE ;
 extern float FINDLINE_OutPut_Min_DISTANCE ;
+extern float Base_Speed;
 #endif

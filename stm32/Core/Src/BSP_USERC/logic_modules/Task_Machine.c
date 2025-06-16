@@ -98,7 +98,7 @@ void TASK_RUN(CarType* Task_Car)
 		case APP_CAR_CONTROL_FIND_RED_LINE:    //测试巡线用
 			if(1)
 			{
-				Car_Find_Line(Task_Car,0.8,1,0,Recv_Buff,1);//这里卡死，先一直运行
+				Car_Find_Line(Task_Car,Base_Speed,1,0,Recv_Buff,1.0);//这里卡死，先一直运行
 			}
 			break;
 		case APP_CAR_CONTROL_GOTO_A:

@@ -169,7 +169,7 @@ int main(void)
 	Car_Init(&Medicine_Car);
 	ERROR_EARSER_INIT();
 	T_Data = '1';
-	HAL_UART_Receive_IT(&huart2,&Openmv_Recv_Data,1);
+	HAL_UART_Receive_IT(&huart2,&Openmv_Recv_Data,1); 
 
   /* USER CODE END 2 */
 
@@ -178,6 +178,8 @@ int main(void)
 	uint8_t num0 = 0;
 	uint8_t num1 = 0;
 	uint8_t num2 = 0;
+  float Left_speed_debug;
+  float Right_speed_debug;
 //	
 	soft_timer_repeat_init(SOFT_TIMER_0,1000);
 	soft_timer_repeat_init(SOFT_TIMER_1,200);
@@ -207,6 +209,8 @@ int main(void)
 			OLED_ShowString(0,5,(uint8_t*)display_buff,8);
 			sprintf(display_buff,"RECVOK?%d      ",recv_status);
 			OLED_ShowString(0,6,(uint8_t*)display_buff,8);
+      sprintf(display_buff,"Cross:%d ", Recv_Buff[2]);
+      OLED_ShowString(0,7,(uint8_t*)display_buff,8);
 		}
 		if(soft_timer_is_timeout(SOFT_TIMER_2))
 		{

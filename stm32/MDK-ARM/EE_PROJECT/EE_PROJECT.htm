@@ -3,7 +3,7 @@
 <title>Static Call Graph - [EE_PROJECT\EE_PROJECT.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image EE_PROJECT\EE_PROJECT.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6220000: Last Updated: Sun Jun 15 13:37:57 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6220000: Last Updated: Sun Jun 15 23:00:05 2025
 <BR><P>
 <H3>Maximum Stack Usage =        392 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -797,8 +797,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM6_DAC_IRQHandler
 </UL>
 
-<P><STRONG><a name="[9c]"></a>Car_Find_Line</STRONG> (Thumb, 392 bytes, Stack size 40 bytes, car_control_1.o(.text.Car_Find_Line))
-<BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = Car_Find_Line &rArr; Load
+<P><STRONG><a name="[9c]"></a>Car_Find_Line</STRONG> (Thumb, 576 bytes, Stack size 48 bytes, car_control_1.o(.text.Car_Find_Line))
+<BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = Car_Find_Line &rArr; Load
 </UL>
 <BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;positional_pid_compute
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Load
@@ -831,8 +831,8 @@ Global Symbols
 <P><STRONG><a name="[7]"></a>DebugMon_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_it.o(.text.DebugMon_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(RESET)
 </UL>
-<P><STRONG><a name="[a5]"></a>Decode</STRONG> (Thumb, 156 bytes, Stack size 8 bytes, mv_uart_1.o(.text.Decode))
-<BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = Decode &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
+<P><STRONG><a name="[a5]"></a>Decode</STRONG> (Thumb, 168 bytes, Stack size 24 bytes, mv_uart_1.o(.text.Decode))
+<BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = Decode &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0sscanf
 </UL>
@@ -1292,7 +1292,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[d8]"></a>HAL_UART_IRQHandler</STRONG> (Thumb, 1428 bytes, Stack size 24 bytes, stm32f4xx_hal_uart.o(.text.HAL_UART_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 276<LI>Call Chain = HAL_UART_IRQHandler &rArr; UART_Receive_IT &rArr; HAL_UART_RxCpltCallback &rArr; Decode &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
+<BR><BR>[Stack]<UL><LI>Max Depth = 292<LI>Call Chain = HAL_UART_IRQHandler &rArr; UART_Receive_IT &rArr; HAL_UART_RxCpltCallback &rArr; Decode &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Abort_IT
@@ -1329,7 +1329,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e1]"></a>HAL_UART_RxCpltCallback</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, main.o(.text.HAL_UART_RxCpltCallback))
-<BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = HAL_UART_RxCpltCallback &rArr; Decode &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
+<BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = HAL_UART_RxCpltCallback &rArr; Decode &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Receive_IT
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Decode
@@ -1589,7 +1589,7 @@ Global Symbols
 <P><STRONG><a name="[5b]"></a>SystemInit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, system_stm32f4xx.o(.text.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(.text)
 </UL>
-<P><STRONG><a name="[fb]"></a>TASK_RUN</STRONG> (Thumb, 332 bytes, Stack size 16 bytes, task_machine_1.o(.text.TASK_RUN))
+<P><STRONG><a name="[fb]"></a>TASK_RUN</STRONG> (Thumb, 340 bytes, Stack size 16 bytes, task_machine_1.o(.text.TASK_RUN))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = TASK_RUN &rArr; Turn_Right &rArr; Load
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
@@ -1674,7 +1674,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[30]"></a>USART2_IRQHandler</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_it.o(.text.USART2_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 276<LI>Call Chain = USART2_IRQHandler &rArr; HAL_UART_IRQHandler &rArr; UART_Receive_IT &rArr; HAL_UART_RxCpltCallback &rArr; Decode &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
+<BR><BR>[Stack]<UL><LI>Max Depth = 292<LI>Call Chain = USART2_IRQHandler &rArr; HAL_UART_IRQHandler &rArr; UART_Receive_IT &rArr; HAL_UART_RxCpltCallback &rArr; Decode &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_IRQHandler
 </UL>
@@ -1775,7 +1775,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_dmp_init
 </UL>
 
-<P><STRONG><a name="[7c]"></a>main</STRONG> (Thumb, 1716 bytes, Stack size 88 bytes, main.o(.text.main))
+<P><STRONG><a name="[7c]"></a>main</STRONG> (Thumb, 1736 bytes, Stack size 88 bytes, main.o(.text.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 392 + Unknown Stack Size
 <LI>Call Chain = main &rArr; mpu_dmp_init &rArr; run_self_test &rArr; mpu_run_self_test &rArr; get_st_biases &rArr; MPU_Read_Len &rArr; IIC_Read_Byte
 </UL>
@@ -2208,7 +2208,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[d9]"></a>UART_Receive_IT</STRONG> (Thumb, 254 bytes, Stack size 4 bytes, stm32f4xx_hal_uart.o(.text.UART_Receive_IT))
-<BR><BR>[Stack]<UL><LI>Max Depth = 252<LI>Call Chain = UART_Receive_IT &rArr; HAL_UART_RxCpltCallback &rArr; Decode &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
+<BR><BR>[Stack]<UL><LI>Max Depth = 268<LI>Call Chain = UART_Receive_IT &rArr; HAL_UART_RxCpltCallback &rArr; Decode &rArr; __0sscanf &rArr; __vfscanf_char &rArr; __vfscanf &rArr; _scanf_int
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_RxCpltCallback
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UARTEx_RxEventCallback

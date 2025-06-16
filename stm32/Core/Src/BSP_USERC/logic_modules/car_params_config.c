@@ -94,15 +94,17 @@ float ERROR_OutPut_Min_DISTANCE = -10000;
 
 //____________________视觉巡线环__________________________
 //基础PID参数
-float FINDLINE_KP_DISTANCE = 0.01;
-float FINDLINE_KI_DISTANCE = 0;
-float FINDLINE_KD_DISTANCE = 0;
+float FINDLINE_KP_DISTANCE = 0.002;
+float FINDLINE_KI_DISTANCE = 0.0;
+float FINDLINE_KD_DISTANCE = 0.01;
 //误差死区
-float FINDLINE_DeadZone_DISTANCE = 0;
+float FINDLINE_DeadZone_DISTANCE = 2;
 //积分分离，积分限幅
 float FINDLINE_Separation_Threshold_DISTANCE = 100;
-float FINDLINE_Integral_Limit_Max_DISTANCE = 100000;
-float FINDLINE_Integral_Limit_Min_DISTANCE = -100000;
+float FINDLINE_Integral_Limit_Max_DISTANCE = 0.1;
+float FINDLINE_Integral_Limit_Min_DISTANCE = -0.1;
 //最后总的输出
 float FINDLINE_OutPut_Max_DISTANCE = 1000;
 float FINDLINE_OutPut_Min_DISTANCE = -10000;
+//巡线基础速度设定
+float Base_Speed = 2.4;

@@ -22,6 +22,7 @@ extern UART_HandleTypeDef huart2;
 uint8_t recv_status;//收到的校验数字
 uint8_t T_Data;			//发送的数字
 int Recv_Buff[4];
+int rho_err_debug, theta_err_debug;
 uint8_t uart_buff[100];
 void Decode(uint8_t uart_recv_data,int* Recv_Buff)
 {
@@ -57,7 +58,9 @@ void Decode(uint8_t uart_recv_data,int* Recv_Buff)
 			{
 				uart_status = 0;
 				uart_buff_index = 0;
-				sscanf((char*)uart_buff,"%d.%d.",&Recv_Buff[0],&Recv_Buff[1]);//格式转一下，消除警告
+				sscanf((char*)uart_buff,"%d.%d.%d.",&Recv_Buff[0],&Recv_Buff[1], &Recv_Buff[2]);//格式转一下，消除警告
+				rho_err_debug = Recv_Buff[0];
+				theta_err_debug = Recv_Buff[1];
 				break;
 			}
 		case 4:
