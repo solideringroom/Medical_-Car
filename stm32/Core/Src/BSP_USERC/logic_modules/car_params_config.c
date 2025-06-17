@@ -35,11 +35,11 @@ float Left_OutPut_Max_SPEED = 8400;
 float Left_OutPut_Min_SPEED = -8400;
 //____________________位置环__________________________
 //基础PID参数
-float Left_KP_DISTANCE = 3;
+float Left_KP_DISTANCE = 6;
 float Left_KI_DISTANCE = 0;
-float Left_KD_DISTANCE = 0.01;
+float Left_KD_DISTANCE = 5;
 //误差死区
-float Left_DeadZone_DISTANCE = 0.02;
+float Left_DeadZone_DISTANCE = 0.05;
 //积分分离，积分限幅
 float Left_Separation_Threshold_DISTANCE = 100;
 float Left_Integral_Limit_Max_DISTANCE = 10000000;
@@ -64,11 +64,11 @@ float Right_OutPut_Max_SPEED = 8400;
 float Right_OutPut_Min_SPEED = -8400;
 //____________________位置环__________________________
 //基础PID参数
-float Right_KP_DISTANCE = 3;
+float Right_KP_DISTANCE = 6;
 float Right_KI_DISTANCE = 0;
-float Right_KD_DISTANCE = 1;
+float Right_KD_DISTANCE = 5;
 //误差死区
-float Right_DeadZone_DISTANCE = 0.02;
+float Right_DeadZone_DISTANCE = 0.05;
 //积分分离，积分限幅
 float Right_Separation_Threshold_DISTANCE = 100;
 float Right_Integral_Limit_Max_DISTANCE = 100000;
@@ -107,4 +107,4 @@ float FINDLINE_Integral_Limit_Min_DISTANCE = -0.1;
 float FINDLINE_OutPut_Max_DISTANCE = 1000;
 float FINDLINE_OutPut_Min_DISTANCE = -10000;
 //巡线基础速度设定
-float Base_Speed = 2;
+float Base_Speed = 3.2;

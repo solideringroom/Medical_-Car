@@ -59,9 +59,11 @@
                             .......
                                0
 */
-
+uint8_t time_flag;
+uint8_t flag_counter = 0;
 TASK_STATUS Medicine_Car_Task;
-uint8_t a_temp_step ;
+uint8_t a_temp_step,d_temp_step,f_temp_step;
+
 uint8_t flip_flag0;
 slope_function speed_slop;
 //
@@ -99,7 +101,7 @@ void TASK_RUN(CarType* Task_Car)
 		case APP_CAR_CONTROL_WAIT_FOR_NUM:    //这一步开始的数字识别等待和视觉对接
 			if(1)
 			{
-				Medicine_Car_Task = APP_CAR_CONTROL_GOTO_A;
+				Medicine_Car_Task = APP_CAR_CONTROL_GOTO_F;//********************************先测试一波远端病房
 				Car_FindLine_Mode_ON(Task_Car);	//先打开循迹PID，准备循迹
 			}
 			break;
@@ -116,25 +118,19 @@ void TASK_RUN(CarType* Task_Car)
 					}
 					break;
 				case 1:
-					if(1 == Go_Forward(Task_Car,0.5,0.8))							//补距离
+					if(1 == Go_Forward(Task_Car,0.5,0.8,0.05))							//补距离
 					{
 						a_temp_step++;														
 					}
 					break;
 				case 2:
-					if(1 == Turn_Left(Task_Car,0.8,0.46))							//左转
+					if(1 == Turn_Left(Task_Car,0.8,0.46,0.05))							//左转
 					{
 						Car_Position_Mode_OFF(Task_Car);
 						Car_FindLine_Mode_ON(Task_Car);
 						a_temp_step++;														
 					}
 					break;
-//				case 3:
-//					if(Car_Find_Line(Task_Car,Base_Speed,0,3,Recv_Buff,1.0) == 5)							//回正
-//					{
-//						a_temp_step++;														
-//					}
-//					break;
 				case 3:
 					if(Car_Find_Line(Task_Car,slop_function(&speed_slop,0,Base_Speed,1000),1,0,Recv_Buff,1.0) == 4)					//巡线直到药房，之后停止
 					{
@@ -144,7 +140,7 @@ void TASK_RUN(CarType* Task_Car)
 					}
 					break;
 				case 4:
-					if(Go_Forward(Task_Car,0.5,0.2) == 1)					//	确保停止的瞬间偏转角度不会改变太大
+					if(Go_Forward(Task_Car,0.5,0.2,0.02) == 1)					//	确保停止的瞬间偏转角度不会改变太大
 					{
 						Car_Position_Mode_OFF(Task_Car);
 						a_temp_step++;												
@@ -158,7 +154,7 @@ void TASK_RUN(CarType* Task_Car)
 					}
 					break;
 				case 6:
-					if(1 == Turn_Right(Task_Car,0.7,0.92))							//右转,其实是向后转
+					if(1 == Turn_Right(Task_Car,0.7,0.92,0.03))							//右转,其实是向后转
 					{
 						Car_Position_Mode_OFF(Task_Car);
 						Car_FindLine_Mode_ON(Task_Car);
@@ -175,13 +171,13 @@ void TASK_RUN(CarType* Task_Car)
 					break;
 				case 8:
 					
-					if(1 == Go_Forward(Task_Car,0.5,0.75))							//补距离
+					if(1 == Go_Forward(Task_Car,0.5,0.75,0.05))							//补距离
 					{
 						a_temp_step++;														
 					}
 					break;
 				case 9:
-					if(1 == Turn_Right(Task_Car,0.8,0.5))							//右转
+					if(1 == Turn_Right(Task_Car,0.8,0.5,0.05))							//右转
 					{
 						Car_Position_Mode_OFF(Task_Car);
 						Car_FindLine_Mode_ON(Task_Car);
@@ -200,7 +196,256 @@ void TASK_RUN(CarType* Task_Car)
 					break;	
 			}
 			break;
-		
+		case APP_CAR_CONTROL_GOTO_D:
+			//a_temp_step = 9;//测试用
+			switch (a_temp_step)
+			{
+				case 0:
+					if(Car_Find_Line(Task_Car,Base_Speed,1,0,Recv_Buff,1.0) == 3)								//前进
+					{
+						if(delay_timer(DELAY_TASK_5,1500)) //路口计数要冷却一段时间
+						{
+							time_flag = 0;
+						}
+						if(time_flag == 0)
+						{
+							flag_counter +=1;
+							time_flag = 1;
+						}
+						if(flag_counter ==2) //第二个十字路口
+						{
+							Car_FindLine_Mode_OFF(Task_Car);
+							Car_Position_Mode_ON(Task_Car);
+							flag_counter = 0;
+							a_temp_step++;
+						}							
+					}
+					break;
+				case 1:
+					if(1 == Go_Forward(Task_Car,0.5,0.8,0.05))							//补距离
+					{
+						a_temp_step++;														
+					}
+					break;
+				case 2:
+					if(1 == Turn_Left(Task_Car,0.8,0.46,0.05))							//左转
+					{
+						Car_Position_Mode_OFF(Task_Car);
+						Car_FindLine_Mode_ON(Task_Car);
+						a_temp_step++;														
+					}
+					break;
+				case 3:
+					if(Car_Find_Line(Task_Car,slop_function(&speed_slop,0,Base_Speed,998),1,0,Recv_Buff,1.0) == 4)					//巡线直到药房，之后停止
+					{
+						Car_FindLine_Mode_OFF(Task_Car);
+						Car_Position_Mode_ON(Task_Car);
+						a_temp_step++;												
+					}
+					break;
+				case 4:
+					if(Go_Forward(Task_Car,0.5,0.2,0.02) == 1)					//	确保停止的瞬间偏转角度不会改变太大
+					{
+						Car_Position_Mode_OFF(Task_Car);
+						a_temp_step++;												
+					}
+					break;
+				case 5:
+					if(1 == HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_3))							//等待卸载药品，之后回城
+					{
+						Car_Position_Mode_ON(Task_Car);
+						a_temp_step++;														
+					}
+					break;
+				case 6:
+					if(1 == Turn_Right(Task_Car,0.7,0.92,0.02))							//右转,其实是向后转
+					{
+						Car_Position_Mode_OFF(Task_Car);
+						Car_FindLine_Mode_ON(Task_Car);
+						a_temp_step++;														
+					}
+					break;
+				case 7:
+					if(Car_Find_Line(Task_Car,Base_Speed,1,0,Recv_Buff,1.0) == 3)								//巡线前进
+					{
+						Car_FindLine_Mode_OFF(Task_Car);
+						Car_Position_Mode_ON(Task_Car);
+						a_temp_step++;																	
+					}
+					break;
+				case 8:
+					
+					if(1 == Go_Forward(Task_Car,0.5,0.75,0.05))							//补距离
+					{
+						a_temp_step++;														
+					}
+					break;
+				case 9:
+					if(1 == Turn_Right(Task_Car,0.8,0.5,0.05))							//右转
+					{
+						Car_Position_Mode_OFF(Task_Car);
+						Car_FindLine_Mode_ON(Task_Car);
+						a_temp_step++;														
+					}
+					break;
+				case 10://这个不清楚十字路口对巡线的干扰，实在不行遇到十字路口就直接打开位置环走过去再开巡线环
+					if(Car_Find_Line(Task_Car,slop_function(&speed_slop,0,Base_Speed,997),1,0,Recv_Buff,1.0) == 4)								//巡线前进
+					{
+						Car_FindLine_Mode_OFF(Task_Car);
+						Medicine_Car_Task = APP_CAR_CONTROL_FLASH;
+						a_temp_step++;									//任务序号进入死区								
+					}
+					break;
+				default:
+					break;	
+			}
+			break;
+		case APP_CAR_CONTROL_GOTO_F:
+			//a_temp_step = 9;//测试用
+			switch (a_temp_step)
+			{
+				case 0:
+					if(Car_Find_Line(Task_Car,slop_function(&speed_slop,0,Base_Speed,697),1,0,Recv_Buff,1.0) == 3)								//前进
+					{
+						if(delay_timer(DELAY_TASK_5,1000)) //路口计数要冷却一段时间
+						{
+							time_flag = 0;
+						}
+						if(time_flag == 0)
+						{
+							flag_counter +=1;
+							time_flag = 1;
+						}
+						if(flag_counter == 3) //第三个十字路口
+						{
+							Car_FindLine_Mode_OFF(Task_Car);
+							Car_Position_Mode_ON(Task_Car);
+							flag_counter = 0;
+							a_temp_step++;
+						}							
+					}
+					break;
+				case 1:
+					if(1 == Go_Forward(Task_Car,2,0.8,0.05))							//补距离
+					{
+						a_temp_step++;														
+					}
+					break;
+				case 2:
+					if(1 == Turn_Left(Task_Car,1.5,0.46,0.05))							//左转
+					{
+						Car_Position_Mode_OFF(Task_Car);
+						Car_FindLine_Mode_ON(Task_Car);
+						a_temp_step++;														
+					}
+					break;
+				case 3:
+					if(Car_Find_Line(Task_Car,slop_function(&speed_slop,0,Base_Speed,596),1,0,Recv_Buff,1.0) == 3)					//巡线直到十字路口
+					{
+						Car_FindLine_Mode_OFF(Task_Car);
+						Car_Position_Mode_ON(Task_Car);
+						a_temp_step++;												
+					}
+					break;//然后要右转
+				case 4:
+					if(1 == Go_Forward(Task_Car,2,0.8,0.05))							//补距离
+					{
+						a_temp_step++;														
+					}
+					break;
+				case 5://右转
+					if(Turn_Right(Task_Car,1.5,0.46,0.05) == 1)					
+					{
+						Car_Position_Mode_OFF(Task_Car);
+						Car_FindLine_Mode_ON(Task_Car);
+						a_temp_step++;												
+					}
+					break;
+				case 6://
+					if(Car_Find_Line(Task_Car,slop_function(&speed_slop,0,Base_Speed,595),1,0,Recv_Buff,1.0) == 4)					//巡线直到药房，之后停止
+					{
+						Car_FindLine_Mode_OFF(Task_Car);
+						Car_Position_Mode_ON(Task_Car);
+						a_temp_step++;												
+					}
+					break;
+				case 7:
+					if(Go_Forward(Task_Car,0.8,0.2,0.02) == 1)					//	确保停止的瞬间偏转角度不会改变太大
+					{
+						Car_Position_Mode_OFF(Task_Car);
+						a_temp_step++;												
+					}
+					break;//这一步就到药房了，等待卸载
+				case 8:
+					if(1 == HAL_GPIO_ReadPin(GPIOE,GPIO_PIN_3))							//等待卸载药品，之后回城
+					{
+						Car_Position_Mode_ON(Task_Car);
+						a_temp_step++;														
+					}
+					break;
+				case 9:
+					if(1 == Turn_Right(Task_Car,1.5,0.94,0.02))							//右转,其实是向后转
+					{
+						Car_Position_Mode_OFF(Task_Car);
+						Car_FindLine_Mode_ON(Task_Car);
+						a_temp_step++;														
+					}
+					break;//下一步是识别到左转的路口
+				case 10:
+					if(Car_Find_Line(Task_Car,slop_function(&speed_slop,0,Base_Speed,594),1,0,Recv_Buff,1.0) == 1)					//巡线直到左手十字路口
+					{
+						Car_FindLine_Mode_OFF(Task_Car);
+						Car_Position_Mode_ON(Task_Car);
+						a_temp_step++;												
+					}
+					break;//下一步左转
+				case 11:
+					if(1 == Go_Forward(Task_Car,2,0.8,0.05))							//补距离
+					{
+						a_temp_step++;														
+					}
+					break;
+				case 12:
+					if(1 == Turn_Left(Task_Car,1.5,0.46,0.05))							//左转
+					{
+						Car_Position_Mode_OFF(Task_Car);
+						Car_FindLine_Mode_ON(Task_Car);
+						a_temp_step++;														
+					}
+					break;
+				case 13:
+					if(Car_Find_Line(Task_Car,slop_function(&speed_slop,0,Base_Speed,593),1,0,Recv_Buff,1.0) == 2)					//巡线直到右手十字路口
+					{
+						Car_FindLine_Mode_OFF(Task_Car);
+						Car_Position_Mode_ON(Task_Car);
+						a_temp_step++;												
+					}
+					break;//下一步右转
+				case 14:
+					if(1 == Go_Forward(Task_Car,2,0.8,0.05))							//补距离
+					{
+						a_temp_step++;														
+					}
+					break;
+				case 15:
+					if(1 == Turn_Right(Task_Car,1.5,0.46,0.05))							//右转
+					{
+						Car_Position_Mode_OFF(Task_Car);
+						Car_FindLine_Mode_ON(Task_Car);
+						a_temp_step++;														
+					}
+					break;//下一步直接开巡线环直到病房就ok了
+				case 16://这个不清楚十字路口对巡线的干扰，实在不行遇到十字路口就直接打开位置环走过去再开巡线环
+					if(Car_Find_Line(Task_Car,slop_function(&speed_slop,0,Base_Speed,592),1,0,Recv_Buff,1.0) == 4)								//巡线前进
+					{
+						Car_FindLine_Mode_OFF(Task_Car);
+						Medicine_Car_Task = APP_CAR_CONTROL_FLASH;
+						a_temp_step++;									//任务序号进入死区								
+					}
+				default:
+					break;	
+			}
+			break;
 		case APP_CAR_CONTROL_FLASH:
 				HAL_GPIO_TogglePin(GPIOF,GPIO_PIN_3);		//点灯庆祝
 				//Medicine_Car_Task++;							

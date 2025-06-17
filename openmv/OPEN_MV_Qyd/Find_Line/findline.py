@@ -96,9 +96,9 @@ while(True):
         else:
             middle_detected = 0
         #根据左右roi是否检测到色块判断路口类型
-        if(left_detected == 0 and right_detected == 1 and middle_detected == 1):    #有右手丁字路口
+        if(left_detected == 0 and right_detected == 1 and middle_detected == 1):    #有左手丁字路口
             meet_crossing_flag = 1
-        elif(left_detected == 1 and right_detected == 0 and middle_detected == 1):  #有左手丁字路口
+        elif(left_detected == 1 and right_detected == 0 and middle_detected == 1):  #有右手丁字路口
             meet_crossing_flag = 2
         elif(left_detected == 1 and right_detected == 1 and middle_detected == 1):  #有十字路口
             meet_crossing_flag = 3

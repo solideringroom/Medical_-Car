@@ -3,7 +3,7 @@
 <title>Static Call Graph - [EE_PROJECT\EE_PROJECT.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image EE_PROJECT\EE_PROJECT.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6220000: Last Updated: Mon Jun 16 16:00:55 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6220000: Last Updated: Tue Jun 17 17:10:20 2025
 <BR><P>
 <H3>Maximum Stack Usage =        392 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -901,32 +901,32 @@ Global Symbols
 <P><STRONG><a name="[b0]"></a>Get_M1_Distance</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, encoder_1.o(.text.Get_M1_Distance))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Right
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Go_Forward
 </UL>
 
 <P><STRONG><a name="[a0]"></a>Get_M1_Speed</STRONG> (Thumb, 176 bytes, Stack size 0 bytes, encoder_1.o(.text.Get_M1_Speed))
 <BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Find_Line
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Right
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Go_Forward
 </UL>
 
 <P><STRONG><a name="[b1]"></a>Get_M2_Distance</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, encoder_1.o(.text.Get_M2_Distance))
 <BR><BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Right
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Go_Forward
 </UL>
 
 <P><STRONG><a name="[a1]"></a>Get_M2_Speed</STRONG> (Thumb, 176 bytes, Stack size 0 bytes, encoder_1.o(.text.Get_M2_Speed))
 <BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Find_Line
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Right
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Go_Forward
 </UL>
 
-<P><STRONG><a name="[ad]"></a>Go_Forward</STRONG> (Thumb, 382 bytes, Stack size 48 bytes, car_control_1.o(.text.Go_Forward))
+<P><STRONG><a name="[ad]"></a>Go_Forward</STRONG> (Thumb, 406 bytes, Stack size 48 bytes, car_control_1.o(.text.Go_Forward))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = Go_Forward &rArr; Load
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_M2_Distance
@@ -1027,7 +1027,7 @@ Global Symbols
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C_WaitOnFlagUntilTimeout
 <LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
 <LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;slop_function
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;slop_function
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_timer
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_Transmit
 </UL>
@@ -1437,7 +1437,7 @@ Global Symbols
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_FindLine_Mode_OFF
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Position_Mode_OFF
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Right
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Go_Forward
 </UL>
 
@@ -1560,13 +1560,13 @@ Global Symbols
 </UL>
 <P><STRONG><a name="[ae]"></a>Reset_M1_Distance</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, encoder_1.o(.text.Reset_M1_Distance))
 <BR><BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Right
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Go_Forward
 </UL>
 
 <P><STRONG><a name="[af]"></a>Reset_M2_Distance</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, encoder_1.o(.text.Reset_M2_Distance))
 <BR><BR>[Called By]<UL><LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Right
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Go_Forward
 </UL>
 
@@ -1595,21 +1595,21 @@ Global Symbols
 <P><STRONG><a name="[5b]"></a>SystemInit</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, system_stm32f4xx.o(.text.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f407xx.o(.text)
 </UL>
-<P><STRONG><a name="[fd]"></a>TASK_RUN</STRONG> (Thumb, 624 bytes, Stack size 24 bytes, task_machine_1.o(.text.TASK_RUN))
+<P><STRONG><a name="[fd]"></a>TASK_RUN</STRONG> (Thumb, 1364 bytes, Stack size 24 bytes, task_machine_1.o(.text.TASK_RUN))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = TASK_RUN &rArr; Turn_Right &rArr; Load
 </UL>
 <BR>[Calls]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_ReadPin
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Init
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 <LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_TogglePin
-<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;slop_function
+<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;slop_function
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Find_Line
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_FindLine_Mode_OFF
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_FindLine_Mode_ON
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Position_Mode_OFF
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Position_Mode_ON
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Right
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_timer
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Go_Forward
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Transmit
@@ -1650,7 +1650,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TASK_RUN
 </UL>
 
-<P><STRONG><a name="[100]"></a>Turn_Left</STRONG> (Thumb, 474 bytes, Stack size 56 bytes, car_control_1.o(.text.Turn_Left))
+<P><STRONG><a name="[ff]"></a>Turn_Left</STRONG> (Thumb, 498 bytes, Stack size 56 bytes, car_control_1.o(.text.Turn_Left))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = Turn_Left &rArr; Load
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_M2_Distance
@@ -1666,7 +1666,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TASK_RUN
 </UL>
 
-<P><STRONG><a name="[101]"></a>Turn_Right</STRONG> (Thumb, 474 bytes, Stack size 56 bytes, car_control_1.o(.text.Turn_Right))
+<P><STRONG><a name="[101]"></a>Turn_Right</STRONG> (Thumb, 498 bytes, Stack size 56 bytes, car_control_1.o(.text.Turn_Right))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = Turn_Right &rArr; Load
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Get_M2_Distance
@@ -1711,7 +1711,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TASK_RUN
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Right
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Go_Forward
 </UL>
 
@@ -2002,7 +2002,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Car_Find_Line
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Right
-<LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
+<LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Turn_Left
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Go_Forward
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> pid_config_1.o(.text.positional_pid_controller_init)
@@ -2032,7 +2032,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mpu_dmp_init
 </UL>
 
-<P><STRONG><a name="[ff]"></a>slop_function</STRONG> (Thumb, 150 bytes, Stack size 32 bytes, soft_timer_1.o(.text.slop_function))
+<P><STRONG><a name="[100]"></a>slop_function</STRONG> (Thumb, 150 bytes, Stack size 32 bytes, soft_timer_1.o(.text.slop_function))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = slop_function
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick

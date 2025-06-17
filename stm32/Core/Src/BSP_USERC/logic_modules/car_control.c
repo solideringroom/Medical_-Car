@@ -62,8 +62,10 @@ float EARSE_M1_M2_ERROR(uint8_t stright_or_turn)
 //*********************动作函数结束之后返回0说明没跑完，返回1说明该动作结束。用于状态机，判断是否切换下一个状态
 //*********************关于一个动作结束之后是否要关闭PID，如果关了那么速度环的积分就没了，而且抗干扰能力减弱，过冲的化回不来。
 //*********************注意下面动作函数里面的速度和位移单位都是圈，不是编码器的脉冲
-uint8_t Go_Forward(CarType* Car,float speed_rev,float distance)
+uint8_t Go_Forward(CarType* Car,float speed_rev,float distance,float DEAD_ZONE)
 {
+	Left_DeadZone_DISTANCE = DEAD_ZONE;
+	Right_DeadZone_DISTANCE = DEAD_ZONE;
 	float speed = speed_rev;	
 	//单次执行清空以前路程，直到控制结束
 	if(RESET_DISTANCE_FLAG == 0)
@@ -104,8 +106,10 @@ uint8_t Go_Forward(CarType* Car,float speed_rev,float distance)
 	return 0;
 }
 
-uint8_t Go_Backward(CarType* Car,float speed_rev,float distance)
+uint8_t Go_Backward(CarType* Car,float speed_rev,float distance,float DEAD_ZONE)
 {
+	Left_DeadZone_DISTANCE = DEAD_ZONE;
+	Right_DeadZone_DISTANCE = DEAD_ZONE;
 	//反转速度，路程，因为要向后走
 	float speed = speed_rev;
 	speed = -speed;
@@ -150,8 +154,10 @@ uint8_t Go_Backward(CarType* Car,float speed_rev,float distance)
 	return 0;
 }
 
-uint8_t Turn_Left(CarType* Car,float speed_rev,float distance)
+uint8_t Turn_Left(CarType* Car,float speed_rev,float distance,float DEAD_ZONE)
 {
+	Left_DeadZone_DISTANCE = DEAD_ZONE;
+	Right_DeadZone_DISTANCE = DEAD_ZONE;
 	//反转速度，路程，因为要向后走
 	float speed = speed_rev;
 	float speed_left = -speed;
@@ -198,8 +204,10 @@ uint8_t Turn_Left(CarType* Car,float speed_rev,float distance)
 	return 0;
 }
 
-uint8_t Turn_Right(CarType* Car,float speed_rev,float distance)
+uint8_t Turn_Right(CarType* Car,float speed_rev,float distance,float DEAD_ZONE)
 {
+	Left_DeadZone_DISTANCE = DEAD_ZONE;
+	Right_DeadZone_DISTANCE = DEAD_ZONE;
 	//反转速度，路程，因为要向后走
 	float speed = speed_rev;
 	float speed_left = -speed;

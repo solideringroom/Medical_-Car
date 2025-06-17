@@ -31,18 +31,18 @@ Delay_Task delay_tasks[MAX_DELAY_TASK];
  */
 uint8_t delay_timer(delay_timer_type delay_task,uint32_t delay_time)//非阻塞方式延时，替代hal_delay
 {
-	if(delay_tasks[delay_task].delay_flag ==0)
+	if(delay_tasks[delay_task].delay_flag ==0) //初始化设定，也没有重置
 	{
 		delay_tasks[delay_task].time_temp = HAL_GetTick()+delay_time;
 		delay_tasks[delay_task].delay_flag = 1;
 	}
-	if(HAL_GetTick()<delay_tasks[delay_task].time_temp) 
+	if(HAL_GetTick()<delay_tasks[delay_task].time_temp) //计算是否需要返回1（时间到了）
 	{
 		return 0;
 	}
 	else
 	{
-		delay_tasks[delay_task].delay_flag = 0;
+		delay_tasks[delay_task].delay_flag = 0;  //时间到，返回一，重置定时器
 		return 1;
 	}
 }

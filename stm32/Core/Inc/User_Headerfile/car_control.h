@@ -18,10 +18,10 @@ typedef struct CarType
 
 uint8_t Car_Init(CarType *Car);
 void Car_Position_Mode_ON(CarType *Car);
-uint8_t Go_Forward(CarType* Car,float speed_rev,float distance);
-uint8_t Go_Backward(CarType* Car,float speed_rev,float distance);
-uint8_t Turn_Left(CarType* Car,float speed_rev,float distance);
-uint8_t Turn_Right(CarType* Car,float speed_rev,float distance);
+uint8_t Go_Forward(CarType* Car,float speed_rev,float distance,float DEAD_ZONE);
+uint8_t Go_Backward(CarType* Car,float speed_rev,float distance,float DEAD_ZONE);
+uint8_t Turn_Left(CarType* Car,float speed_rev,float distance,float DEAD_ZONE);
+uint8_t Turn_Right(CarType* Car,float speed_rev,float distance,float DEAD_ZONE);
 void Car_Position_Mode_OFF(CarType *Car);
 void Car_FindLine_Mode_ON(CarType *Car);
 void Car_FindLine_Mode_OFF(CarType *Car);
